@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Weblitz.Mvc.Forum.Web.ViewModels;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
 {
@@ -28,7 +29,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         // POST: /Topic/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TopicInput input)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         // POST: /Topic/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, TopicInput input)
         {
             try
             {
@@ -77,10 +78,10 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // POST: /Topic/Delete/5
+        // POST: /Topic/Destroy/5
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Destroy(int id)
         {
             try
             {

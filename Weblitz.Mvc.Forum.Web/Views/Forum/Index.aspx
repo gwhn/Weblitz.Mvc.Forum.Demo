@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<Weblitz.Mvc.Forum.Web.ViewModels.ForumSummary[]>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage<IEnumerable<Weblitz.Mvc.Forum.Web.ViewModels.ForumSummary>>" MasterPageFile="~/Views/Shared/Site.Master" %>
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <table>
@@ -13,13 +13,13 @@
             <% foreach (var forum in Model) { %>
             <tr>
                 <td><%= Html.ActionLink(forum.Name, "Index", "Topic", new {forum.Id}) %></td>
-                <td><%: forum.TopicCount %></td>
-                <td><%: forum.PostCount %></td>
-            </tr>  
+                <td><%: forum.TopicCount%></td>
+                <td><%: forum.PostCount%></td>
+            </tr>
             <% } %>
         </tbody>
     </table>
     <ul class="options">
-        <li><%= Html.ActionLink("New Forum", "Create") %></li>
+        <li><%=Html.ActionLink("New Forum", "Create")%></li>
     </ul>
 </asp:Content>

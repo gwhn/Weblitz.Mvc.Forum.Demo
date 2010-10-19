@@ -7,7 +7,7 @@
         <div class="meta">
             <div class="forum"><%: Model.Forum %></div>
             <div class="author"><%: Model.Author %></div>
-            <div class="date"><%: Model.PublishedDate.ToShortDateString() %></div>
+            <div class="date"><%: Model.PublishedDate %></div>
         </div>
         <ul class="options">
             <li><%= Html.ActionLink("Edit", "Edit", new {Model.Id}) %></li>
@@ -21,7 +21,7 @@
             <div class="body"><%: Model.Body %></div>
             <div class="meta">
                 <div class="author"><%: post.Author %></div>
-                <div class="date"><%: post.PublishedDate.ToShortDateString() %></div>
+                <div class="date"><%: post.PublishedDate %></div>
             </div>
             <ul class="options">
                 <li><%= Html.ActionLink("Edit", "Edit", "Post", new {post.Id}) %></li>

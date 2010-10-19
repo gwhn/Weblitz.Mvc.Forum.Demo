@@ -17,7 +17,7 @@
                 <td><%: topic.PostCount %></td>
                 <td>
                 <% if (topic.IsSticky) { %>
-                    <img title="Sticky Topic" src="/Content/Images/Sticky.jpg" width="32" height="30" />
+                    <img src="/Content/Images/Sticky.jpg" alt="Sticky Topic" width="32" height="30" />
                 <% } %>
                 </td>
             </tr>  

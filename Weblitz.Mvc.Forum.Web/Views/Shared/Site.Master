@@ -20,7 +20,7 @@
             </div> 
             
             <div id="searchcontainer">
-                <% Html.RenderPartial("SearchQuery"); %>
+                <% //Html.RenderPartial("SearchQuery"); %>
             </div>
 
             <div id="menucontainer">
