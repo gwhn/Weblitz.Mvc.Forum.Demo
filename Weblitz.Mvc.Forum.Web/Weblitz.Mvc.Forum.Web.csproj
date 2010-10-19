@@ -74,7 +74,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ForumDetail.cs" />
+    <Compile Include="ViewModels\DeleteItem.cs" />
     <Compile Include="ViewModels\ForumInput.cs" />
     <Compile Include="ViewModels\ForumSummary.cs" />
     <Compile Include="ViewModels\PostDetail.cs" />
@@ -98,20 +98,21 @@
     <Content Include="Global.asax" />
     <Content Include="Views\Forum\Create.aspx" />
     <Content Include="Views\Forum\Delete.aspx" />
-    <Content Include="Views\Forum\Details.aspx" />
     <Content Include="Views\Forum\Edit.aspx" />
+    <Content Include="Views\Forum\Form.ascx" />
     <Content Include="Views\Forum\Index.aspx" />
     <Content Include="Views\Forum\Search.aspx" />
     <Content Include="Views\Post\Create.aspx" />
     <Content Include="Views\Post\Delete.aspx" />
-    <Content Include="Views\Post\Details.aspx" />
     <Content Include="Views\Post\Edit.aspx" />
     <Content Include="Views\Post\Index.aspx" />
-    <Content Include="Views\Shared\SearchQueryUserControl.ascx" />
+    <Content Include="Views\Shared\DeleteConfirmation.ascx" />
+    <Content Include="Views\Shared\SearchQuery.ascx" />
     <Content Include="Views\Topic\Create.aspx" />
     <Content Include="Views\Topic\Delete.aspx" />
     <Content Include="Views\Topic\Details.aspx" />
     <Content Include="Views\Topic\Edit.aspx" />
+    <Content Include="Views\Topic\Form.ascx" />
     <Content Include="Views\Topic\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -140,7 +141,7 @@
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
-    <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\LogOn.ascx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
   </ItemGroup>

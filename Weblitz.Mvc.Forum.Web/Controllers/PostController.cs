@@ -17,14 +17,6 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // GET: /Post/Details/5
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
         // GET: /Post/Create
 
         public ActionResult Create()
