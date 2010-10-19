@@ -1,17 +1,16 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Weblitz.Mvc.Forum.Web.ViewModels.TopicInput>" %>
 
-<form>
-    <fieldset>
-        <label for="topictitle">Title:</label>
-        <input type="text" name="Title" id="topictitle" />
-        <label for="topicsticky">Sticky?</label>
-        <input type="checkbox" name="Sticky" id="topicsticky" />
-        <textarea name="Body" id="topicbody" rows="5">
-            Enter the topic body here...
-        </textarea>
-        <ul class="options">
-            <li><a>Cancel</a></li>
-            <li><input type="submit" value="Save" /></li>
-        </ul>
-    </fieldset>
-</form>        
+<% using(Html.BeginForm(Model.Action, "Topic", new {Model.Id})) { %>
+<fieldset>
+    <%= Html.LabelFor(m => m.Title) %>
+    <%= Html.TextBoxFor(m => m.Title) %>
+    <%= Html.LabelFor(m => m.IsSticky) %>
+    <%= Html.CheckBoxFor(m => m.IsSticky) %>
+    <%= Html.LabelFor(m => m.Body) %>
+    <%= Html.TextAreaFor(m => m.Body) %>
+    <ul class="options">
+        <li><%= Html.ActionLink("Cancel", "Details", "Forum", new {Model.ForumId}) %></li>
+        <li><input type="submit" value="Save" /></li>
+    </ul>
+</fieldset>  
+<% } %>

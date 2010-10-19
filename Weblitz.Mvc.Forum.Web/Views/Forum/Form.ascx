@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Weblitz.Mvc.Forum.Web.ViewModels.ForumInput>" %>
 
-<form>
-    <fieldset>
-        <label for="forumname">Name:</label>
-        <input type="text" name="Name" id="forumname" />
-        <ul class="options">
-            <li><a>Cancel</a></li>
-            <li><input type="submit" value="Save" /></li>
-        </ul>
-    </fieldset>
-</form>
+<% using(Html.BeginForm(Model.Action, "Forum", new {Model.Id})) { %>
+<fieldset>
+    <%= Html.LabelFor(m => m.Name) %>
+    <%= Html.TextBoxFor(m => m.Name) %>
+    <ul class="options">
+        <li><%= Html.ActionLink("Cancel", "Index") %></li>
+        <li><input type="submit" value="Save" /></li>
+    </ul>
+</fieldset>
+<% } %>

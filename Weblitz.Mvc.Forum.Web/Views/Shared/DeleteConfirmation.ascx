@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Weblitz.Mvc.Forum.Web.ViewModels.DeleteItem>" %>
 
-<p>Are you sure you want to delete <em>Interesting Forum</em>?</p>
+<p>Are you sure you want to delete <em><%: Model.Description %></em>?</p>
 <ul class="options">
-    <li><a>Yes</a></li>
-    <li><a>No</a></li>
+    <li><%= Html.ActionLink("Yes", Model.YesAction, new {Model.Id}) %></li>
+    <li><%= Html.ActionLink("No", Model.NoAction, new {Model.Id}) %></li>
 </ul>
