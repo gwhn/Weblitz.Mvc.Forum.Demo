@@ -10,11 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <% foreach (var summary in Model) { %>
+            <% foreach (var forum in Model) { %>
             <tr>
-                <td><%= Html.ActionLink(summary.Name, "Index", "Topic", new {summary.Id}) %></td>
-                <td><%: summary.TopicCount %></td>
-                <td><%: summary.PostCount %></td>
+                <td><%= Html.ActionLink(forum.Name, "Index", "Topic", new {forum.Id}) %></td>
+                <td><%: forum.TopicCount %></td>
+                <td><%: forum.PostCount %></td>
             </tr>  
             <% } %>
         </tbody>

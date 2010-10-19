@@ -9,14 +9,6 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
     public class TopicController : Controller
     {
         //
-        // GET: /Topic/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        //
         // GET: /Topic/Details/5
 
         public ActionResult Details(int id)

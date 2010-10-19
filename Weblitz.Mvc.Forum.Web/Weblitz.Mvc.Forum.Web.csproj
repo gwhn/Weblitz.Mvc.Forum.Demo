@@ -75,6 +75,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DeleteItem.cs" />
+    <Compile Include="ViewModels\ForumDetail.cs" />
     <Compile Include="ViewModels\ForumInput.cs" />
     <Compile Include="ViewModels\ForumSummary.cs" />
     <Compile Include="ViewModels\PostDetail.cs" />
@@ -95,9 +96,11 @@
     <Content Include="App_Data\WeblitzMvcForum_log.LDF">
       <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Images\sticky.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Views\Forum\Create.aspx" />
     <Content Include="Views\Forum\Delete.aspx" />
+    <Content Include="Views\Forum\Details.aspx" />
     <Content Include="Views\Forum\Edit.aspx" />
     <Content Include="Views\Forum\Form.ascx" />
     <Content Include="Views\Forum\Index.aspx" />
@@ -112,7 +115,6 @@
     <Content Include="Views\Topic\Details.aspx" />
     <Content Include="Views\Topic\Edit.aspx" />
     <Content Include="Views\Topic\Form.ascx" />
-    <Content Include="Views\Topic\Index.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
