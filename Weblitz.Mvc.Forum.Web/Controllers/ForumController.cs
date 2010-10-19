@@ -46,7 +46,36 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var forum = new ForumDetail
+                            {
+                                Id = id,
+                                Name = "Selected forum",
+                                Topics = new[]
+                                             {
+                                                 new TopicSummary
+                                                     {
+                                                         Id = 11,
+                                                         IsSticky = true,
+                                                         PostCount = 43,
+                                                         Title = "First Topic in Selected Forum"
+                                                     },
+                                                 new TopicSummary
+                                                     {
+                                                         Id = 12,
+                                                         IsSticky = false,
+                                                         PostCount = 25,
+                                                         Title = "Second Topic in Selected Forum"
+                                                     },
+                                                 new TopicSummary
+                                                     {
+                                                         Id = 13,
+                                                         IsSticky = false,
+                                                         PostCount = 0,
+                                                         Title = "Third Topic in Selected Forum"
+                                                     }
+                                             }
+                            };
+            return View(forum);
         }
 
         //
@@ -54,7 +83,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new ForumInput());
         }
 
         //

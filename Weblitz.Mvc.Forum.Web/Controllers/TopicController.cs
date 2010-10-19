@@ -14,7 +14,41 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var topic = new TopicDetail
+                            {
+                                Author = "Selected Topic Author",
+                                Body = "Body of Selected Topic",
+                                Forum = "Forum that Selected Topic belongs to",
+                                Id = 21,
+                                NewPost = new PostInput(),
+                                Posts = new[]
+                                            {
+                                                new PostDetail
+                                                    {
+                                                        Author = "First Post of Selected Topic Author",
+                                                        Body = "Body of First Post of Selected Topic",
+                                                        Id = 31,
+                                                        PublishedDate = DateTime.Today.ToShortDateString()
+                                                    },
+                                                new PostDetail
+                                                    {
+                                                        Author = "Second Post of Selected Topic Author",
+                                                        Body = "Body of Second Post of Selected Topic",
+                                                        Id = 32,
+                                                        PublishedDate =
+                                                            DateTime.Today.Subtract(new TimeSpan(2, 0, 0, 0)).ToString()
+                                                    },
+                                                new PostDetail
+                                                    {
+                                                        Author = "Third Post of Selected Topic Author",
+                                                        Body = "Body of Third Post of Selected Topic",
+                                                        Id = 33,
+                                                        PublishedDate =
+                                                            DateTime.Today.Subtract(new TimeSpan(20, 0, 0, 0)).ToString()
+                                                    }
+                                            }
+                            };
+            return View(topic);
         }
 
         //
@@ -23,7 +57,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Topic/Create
@@ -42,10 +76,10 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
                 return View();
             }
         }
-        
+
         //
         // GET: /Topic/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -60,7 +94,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -71,7 +105,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         //
         // GET: /Topic/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -86,7 +120,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
