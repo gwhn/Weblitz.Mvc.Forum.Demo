@@ -19,6 +19,10 @@
                 <% Html.RenderPartial("LogOnUserControl"); %>
             </div> 
             
+            <div id="searchcontainer">
+                <% Html.RenderPartial("SearchQueryUserControl"); %>
+            </div>
+
             <div id="menucontainer">
             
                 <ul id="menu">              

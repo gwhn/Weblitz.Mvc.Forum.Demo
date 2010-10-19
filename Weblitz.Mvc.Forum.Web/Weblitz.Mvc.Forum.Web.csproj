@@ -80,21 +80,36 @@
     <Compile Include="ViewModels\PostDetail.cs" />
     <Compile Include="ViewModels\PostInput.cs" />
     <Compile Include="ViewModels\PostSummary.cs" />
+    <Compile Include="ViewModels\SearchQuery.cs" />
+    <Compile Include="ViewModels\SearchResult.cs" />
     <Compile Include="ViewModels\TopicDetail.cs" />
     <Compile Include="ViewModels\TopicInput.cs" />
     <Compile Include="ViewModels\TopicSummary.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnetdb.mdf" />
+    <Content Include="App_Data\aspnetdb_log.LDF">
+      <DependentUpon>aspnetdb.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\WeblitzMvcForum.mdf" />
+    <Content Include="App_Data\WeblitzMvcForum_log.LDF">
+      <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Views\Forum\Create.aspx" />
+    <Content Include="Views\Forum\Delete.aspx" />
     <Content Include="Views\Forum\Details.aspx" />
     <Content Include="Views\Forum\Edit.aspx" />
     <Content Include="Views\Forum\Index.aspx" />
+    <Content Include="Views\Forum\Search.aspx" />
     <Content Include="Views\Post\Create.aspx" />
+    <Content Include="Views\Post\Delete.aspx" />
     <Content Include="Views\Post\Details.aspx" />
     <Content Include="Views\Post\Edit.aspx" />
     <Content Include="Views\Post\Index.aspx" />
+    <Content Include="Views\Shared\SearchQueryUserControl.ascx" />
     <Content Include="Views\Topic\Create.aspx" />
+    <Content Include="Views\Topic\Delete.aspx" />
     <Content Include="Views\Topic\Details.aspx" />
     <Content Include="Views\Topic\Edit.aspx" />
     <Content Include="Views\Topic\Index.aspx" />
@@ -129,9 +144,7 @@
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

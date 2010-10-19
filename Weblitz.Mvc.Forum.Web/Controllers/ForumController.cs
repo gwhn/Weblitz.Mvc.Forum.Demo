@@ -101,5 +101,23 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
                 return View();
             }
         }
+
+        //
+        // POST: /Forum/Search/Query
+
+        [HttpPost]
+        public ActionResult Search(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add search logic here
+ 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
