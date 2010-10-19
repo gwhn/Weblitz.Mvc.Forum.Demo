@@ -10,14 +10,16 @@
             </tr>
         </thead>
         <tbody>
+            <% foreach (var summary in Model) { %>
             <tr>
-                <td>Interesting forum name</td>
-                <td>123</td>
-                <td>542</td>
-            </tr>
+                <td><%= Html.ActionLink(summary.Name, "Index", "Topic", new {summary.Id}) %></td>
+                <td><%: summary.TopicCount %></td>
+                <td><%: summary.PostCount %></td>
+            </tr>  
+            <% } %>
         </tbody>
     </table>
     <ul class="options">
-        <li><a>New Forum</a></li>
+        <li><%= Html.ActionLink("New Forum", "Create") %></li>
     </ul>
 </asp:Content>

@@ -4,6 +4,8 @@
     <fieldset>
         <label for="topictitle">Title:</label>
         <input type="text" name="Title" id="topictitle" />
+        <label for="topicsticky">Sticky?</label>
+        <input type="checkbox" name="Sticky" id="topicsticky" />
         <textarea name="Body" id="topicbody" rows="5">
             Enter the topic body here...
         </textarea>

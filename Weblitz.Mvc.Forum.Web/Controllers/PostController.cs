@@ -8,25 +8,6 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 {
     public class PostController : Controller
     {
-        //
-        // GET: /Post/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Post/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
-        // POST: /Post/Create
-
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -34,7 +15,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Topic");
             }
             catch
             {
@@ -59,8 +40,8 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Details", "Topic");
             }
             catch
             {
@@ -86,7 +67,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add delete logic here
  
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Topic");
             }
             catch
             {

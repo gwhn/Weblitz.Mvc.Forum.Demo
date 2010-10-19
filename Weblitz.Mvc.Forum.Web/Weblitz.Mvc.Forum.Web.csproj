@@ -105,7 +105,6 @@
     <Content Include="Views\Post\Create.aspx" />
     <Content Include="Views\Post\Delete.aspx" />
     <Content Include="Views\Post\Edit.aspx" />
-    <Content Include="Views\Post\Index.aspx" />
     <Content Include="Views\Shared\DeleteConfirmation.ascx" />
     <Content Include="Views\Shared\SearchQuery.ascx" />
     <Content Include="Views\Topic\Create.aspx" />
