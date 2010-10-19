@@ -115,6 +115,7 @@
     <Content Include="Views\Topic\Details.aspx" />
     <Content Include="Views\Topic\Edit.aspx" />
     <Content Include="Views\Topic\Form.ascx" />
+    <Content Include="Views\Topic\NewPost.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
