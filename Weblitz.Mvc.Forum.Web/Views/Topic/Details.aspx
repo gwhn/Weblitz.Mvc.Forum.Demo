@@ -28,7 +28,14 @@
             <ul class="options">
                 <li><%=Html.ActionLink("Edit", "Edit", "Post", new {post.Id}, null)%></li>
                 <li><%=Html.ActionLink("Delete", "Delete", "Post", new {post.Id}, null)%></li>
-                <li><%=Html.ActionLink("Flag", "Flag", "Post", new {post.Id}, null)%></li>
+                <li>
+                <%
+                using (Html.BeginForm("Flag", "Post", new {post.Id}))
+                {%>
+                    <input type="submit" value="Flag" />
+                <%
+                }%>
+                </li>
             </ul>
         </div>  
         <%

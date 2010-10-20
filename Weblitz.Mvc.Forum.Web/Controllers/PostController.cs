@@ -91,5 +91,21 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
                 return View();
             }
         }
+
+        //
+        // POST: /Post/Flag/5
+
+        [HttpPost]
+        public ActionResult Flag(int id)
+        {
+            try
+            {
+                return RedirectToAction("Details", "Topic", new { Id = 8989 });
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
