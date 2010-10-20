@@ -20,8 +20,5 @@ namespace Weblitz.Mvc.Forum.Web.ViewModels
 
         [ScaffoldColumn(false)]
         public int ForumId { get; set; }
-
-        [ScaffoldColumn(false)]
-        public string ForumName { get; set; }
     }
 }

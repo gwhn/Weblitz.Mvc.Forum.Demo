@@ -57,10 +57,10 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Create(int forumId)
         {
+            ViewData["Forum"] = "The forum in the current context";
             var topic = new TopicInput
                             {
-                                ForumId = forumId,
-                                ForumName = "The forum in the current context"
+                                ForumId = forumId
                             };
             return View(topic);
         }
@@ -88,11 +88,11 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+            ViewData["Forum"] = "This is the forum for the current context";
             var topic = new TopicInput
                             {
                                 ForumId = 321,
                                 Body = "This is the body of text to edit for the selected topic",
-                                ForumName = "This is the forum for the current context",
                                 IsSticky = false,
                                 Title = "Title of the topic"
                             };
