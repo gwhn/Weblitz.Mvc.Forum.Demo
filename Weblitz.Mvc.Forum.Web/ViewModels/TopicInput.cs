@@ -9,19 +9,19 @@ namespace Weblitz.Mvc.Forum.Web.ViewModels
 {
     public class TopicInput
     {
-        public int Id { get; internal set; }
-        
-        public string Action { get; internal set; }
-
         [Required, StringLength(255)]
-        public string Title { get; internal set; }
+        public string Title { get; set; }
 
-        [Required]
-        public string Body { get; internal set; }
-        
+        [Required, DataType(DataType.MultilineText)]
+        public string Body { get; set; }
+
         [DisplayName("Sticky?")]
-        public bool IsSticky { get; internal set; }
-        
-        public int ForumId { get; internal set; }
+        public bool IsSticky { get; set; }
+
+        [ScaffoldColumn(false)]
+        public int ForumId { get; set; }
+
+        [ScaffoldColumn(false)]
+        public string ForumName { get; set; }
     }
 }

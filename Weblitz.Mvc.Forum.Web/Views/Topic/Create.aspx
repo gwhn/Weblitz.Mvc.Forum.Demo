@@ -2,5 +2,6 @@
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent"></asp:Content>
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <h2>New Topic</h2>
-    <% Html.RenderPartial("Form"); %>
+    <%
+        Html.RenderPartial("Form");%>
 </asp:Content>

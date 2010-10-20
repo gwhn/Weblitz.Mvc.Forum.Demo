@@ -96,7 +96,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new{Id = 123});
             }
             catch
             {
@@ -123,7 +123,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new{Id = id});
             }
             catch
             {

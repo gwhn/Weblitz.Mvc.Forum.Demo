@@ -33,6 +33,6 @@
     <ul class="options">
         <li><%=Html.ActionLink("Edit", "Edit", new { Model.Id }, null)%></li>
         <li><%=Html.ActionLink("Delete", "Delete", new { Model.Id }, null)%></li>
-        <li><%=Html.ActionLink("New Topic", "Create", "Topic", new {Model.Id}, null)%></li>
+        <li><%=Html.ActionLink("New Topic", "Create", "Topic", new {ForumId = Model.Id}, null)%></li>
     </ul>
 </asp:Content>

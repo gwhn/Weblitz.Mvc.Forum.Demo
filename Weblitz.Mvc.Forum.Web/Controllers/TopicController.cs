@@ -53,11 +53,16 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // GET: /Topic/Create
+        // GET: /Topic/Create?ForumId=123
 
-        public ActionResult Create()
+        public ActionResult Create(int forumId)
         {
-            return View();
+            var topic = new TopicInput
+                            {
+                                ForumId = forumId,
+                                ForumName = "The forum in the current context"
+                            };
+            return View(topic);
         }
 
         //
@@ -70,7 +75,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {Id = 123});
             }
             catch
             {
@@ -83,7 +88,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var topic = new TopicInput
+                            {
+                                ForumId = 321,
+                                Body = "This is the body of text to edit for the selected topic",
+                                ForumName = "This is the forum for the current context",
+                                IsSticky = false,
+                                Title = "Title of the topic"
+                            };
+            return View(topic);
         }
 
         //
@@ -96,7 +109,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {Id = id});
             }
             catch
             {
