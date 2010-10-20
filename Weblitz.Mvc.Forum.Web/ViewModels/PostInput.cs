@@ -9,7 +9,7 @@ namespace Weblitz.Mvc.Forum.Web.ViewModels
 {
     public class PostInput
     {
-        [ScaffoldColumn(false), HiddenInput]
+        [ScaffoldColumn(false)]
         public int TopicId { get; set; }
 
         [Required, StringLength(255)]

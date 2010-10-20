@@ -136,7 +136,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            ViewData["CancelId"] = id;
+            ViewData["CancelAction"] = "Details";
+            ViewData["CancelController"] = RouteData.Values["Controller"];
+            var item = new DeleteItem
+                           {
+                               Id = id,
+                               Description = "Forum item selected for deletion"
+                           };
+            return View(item);
         }
 
         //

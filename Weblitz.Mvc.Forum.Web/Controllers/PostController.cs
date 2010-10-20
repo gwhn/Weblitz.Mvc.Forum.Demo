@@ -29,7 +29,14 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewData["Topic"] = "The topic title in the current context";
+            var post = new PostInput
+                           {
+                               TopicId = 432,
+                               Author = "Author of post",
+                               Body = "this is the body of the post that is being edited"
+                           };
+            return View(post);
         }
 
         //
@@ -42,7 +49,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Details", "Topic");
+                return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
             }
             catch
             {
@@ -55,7 +62,16 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            var topicId = 312;
+            ViewData["CancelId"] = topicId;
+            ViewData["CancelAction"] = "Details";
+            ViewData["CancelController"] = "Topic";
+            var item = new DeleteItem
+                           {
+                               Id = id,
+                               Description = "Post item selected for deletion"
+                           };
+            return View(item);
         }
 
         //
@@ -68,7 +84,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Details", "Topic");
+                return RedirectToAction("Details", "Topic", new {Id = 312});
             }
             catch
             {

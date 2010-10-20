@@ -122,7 +122,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            ViewData["CancelId"] = id;
+            ViewData["CancelAction"] = "Details";
+            ViewData["CancelController"] = RouteData.Values["Controller"];
+            var item = new DeleteItem
+            {
+                Id = id,
+                Description = "Topic item selected for deletion"
+            };
+            return View(item);
         }
 
         //
@@ -134,8 +142,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Forum", new{Id = 312});
             }
             catch
             {
