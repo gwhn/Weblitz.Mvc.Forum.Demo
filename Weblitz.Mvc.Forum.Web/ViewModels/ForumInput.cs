@@ -8,12 +8,7 @@ namespace Weblitz.Mvc.Forum.Web.ViewModels
 {
     public class ForumInput
     {
-        [Required]
-        public int Id { get; internal set; }
-
-        public string Action { get; internal set; }
-
         [Required, StringLength(255)]
-        public string Name { get; internal set; }
+        public string Name { get; set; }
     }
 }

@@ -3,12 +3,10 @@
 <%
     Html.EnableClientValidation();%>
 <%
-    using (Html.BeginForm(Model.Action, "Forum", new {Model.Id}))
+    using (Html.BeginForm())
     {%>
     <fieldset>
-        <%=Html.LabelFor(m => m.Name)%>
-        <%=Html.TextBoxFor(m => m.Name)%>
-        <%=Html.ValidationMessageFor(m => m.Name)%>
+        <%=Html.EditorForModel()%>
         <ul class="options">
             <li><%=Html.ActionLink("Cancel", "Index")%></li>
             <li><input type="submit" value="Save" /></li>

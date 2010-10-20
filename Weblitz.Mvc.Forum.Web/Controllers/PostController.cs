@@ -59,9 +59,9 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // POST: /Post/Destroy/5
+        // POST: /Post/Delete/5
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
             try

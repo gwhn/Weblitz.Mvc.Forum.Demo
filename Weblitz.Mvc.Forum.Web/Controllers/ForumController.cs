@@ -109,7 +109,8 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var forum = new ForumInput {Name = "Some name to edit"};
+            return View(forum);
         }
 
         //
@@ -139,9 +140,9 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // POST: /Forum/Destroy/5
+        // POST: /Forum/Delete/5
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
             try

@@ -46,7 +46,8 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
                                                         PublishedDate =
                                                             DateTime.Today.Subtract(new TimeSpan(20, 0, 0, 0)).ToString()
                                                     }
-                                            }
+                                            },
+                                Title = "Title of Selected Article"
                             };
             return View(topic);
         }
@@ -112,9 +113,9 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         }
 
         //
-        // POST: /Topic/Destroy/5
+        // POST: /Topic/Delete/5
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
             try

@@ -34,25 +34,5 @@
         <%
             }%>
     </div>
-    <div class="newpost">
-        <%
-            Html.EnableClientValidation();%>
-        <%
-            using (Html.BeginForm("Create", "Post"))
-            {%>
-        <fieldset>
-            <%=Html.HiddenFor(m => m.Id) %>
-            <%=Html.LabelFor(m => m.NewPost.Author)%>
-            <%=Html.TextBoxFor(m => m.NewPost.Author)%>
-            <%=Html.ValidationMessageFor(m => m.NewPost.Author)%>
-            <%=Html.LabelFor(m => m.NewPost.Body)%>
-            <%=Html.TextAreaFor(m => m.NewPost.Body)%>
-            <%=Html.ValidationMessageFor(m => m.NewPost.Body)%>
-            <ul class="options">
-                <li><input type="submit" value="Post" /></li>
-            </ul>
-        </fieldset>  
-        <%
-            }%>
-    </div>
+    <% Html.RenderPartial("NewPost", Model.NewPost); %>
 </asp:Content>
