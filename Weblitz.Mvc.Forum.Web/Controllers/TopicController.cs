@@ -19,8 +19,8 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
                                 Author = "Selected Topic Author",
                                 Body = "Body of Selected Topic",
                                 Forum = "Forum that Selected Topic belongs to",
-                                Id = 21,
-                                NewPost = new PostInput(),
+                                Id = id,
+                                NewPost = new PostInput{ TopicId = id },
                                 Posts = new[]
                                             {
                                                 new PostDetail

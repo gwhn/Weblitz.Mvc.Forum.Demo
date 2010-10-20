@@ -16,17 +16,17 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Details", "Topic");
+                return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
             }
             catch
             {
                 return View();
             }
         }
-        
+
         //
         // GET: /Post/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -52,7 +52,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         //
         // GET: /Post/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -67,7 +67,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Details", "Topic");
             }
             catch

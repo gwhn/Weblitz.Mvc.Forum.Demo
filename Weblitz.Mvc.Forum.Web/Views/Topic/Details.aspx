@@ -26,13 +26,14 @@
                 <div class="date"><%:post.PublishedDate%></div>
             </div>
             <ul class="options">
-                <li><%=Html.ActionLink("Edit", "Edit", "Post", new {post.Id})%></li>
-                <li><%=Html.ActionLink("Delete", "Delete", "Post", new {post.Id})%></li>
-                <li><%=Html.ActionLink("Flag", "Flag", "Post", new {post.Id})%></li>
+                <li><%=Html.ActionLink("Edit", "Edit", "Post", new {post.Id}, null)%></li>
+                <li><%=Html.ActionLink("Delete", "Delete", "Post", new {post.Id}, null)%></li>
+                <li><%=Html.ActionLink("Flag", "Flag", "Post", new {post.Id}, null)%></li>
             </ul>
         </div>  
         <%
             }%>
     </div>
-    <% Html.RenderPartial("NewPost", Model.NewPost); %>
+    <%
+            Html.RenderPartial("NewPost", Model.NewPost);%>
 </asp:Content>
