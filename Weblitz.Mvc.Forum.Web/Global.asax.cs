@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Weblitz.Mvc.Forum.Web.Bootstrappers;
 
 namespace Weblitz.Mvc.Forum.Web
 {
@@ -29,6 +30,8 @@ namespace Weblitz.Mvc.Forum.Web
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+
+            StructureMapBootstrapper.Initialize();
         }
     }
 }
