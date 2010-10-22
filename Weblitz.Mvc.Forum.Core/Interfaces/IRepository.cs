@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Weblitz.Mvc.Forum.Infrastructure.Services
+namespace Weblitz.Mvc.Forum.Core.Interfaces
 {
     public interface IRepository<T> where T : class
     {

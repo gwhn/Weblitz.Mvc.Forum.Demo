@@ -1,4 +1,6 @@
+using System;
 using System.Data.Objects;
+using Weblitz.Mvc.Forum.Core.Interfaces;
 
 namespace Weblitz.Mvc.Forum.Infrastructure.Services
 {
@@ -9,6 +11,7 @@ namespace Weblitz.Mvc.Forum.Infrastructure.Services
         public ObjectContextAdapter(ObjectContext context)
         {
             _context = context;
+            _context.ContextOptions.LazyLoadingEnabled = false;
         }
 
         public void Dispose()

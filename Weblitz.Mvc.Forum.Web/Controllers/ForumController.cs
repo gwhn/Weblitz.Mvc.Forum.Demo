@@ -3,48 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Weblitz.Mvc.Forum.Web.ViewModels;
+using Weblitz.Mvc.Forum.Core.Interfaces;
+using Weblitz.Mvc.Forum.Infrastructure.Services;
+using Weblitz.Mvc.Forum.Web.Models;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
 {
     public class ForumController : Controller
     {
+        private readonly IRepository<Db.Forum> _repository;
+
+        public ForumController(IRepository<Db.Forum> repository)
+        {
+            _repository = repository;
+        }
+
         //
         // GET: /Forum/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            var forums = new[]
-                             {
-                                 new ForumSummary
-                                     {
-                                         Id = 1,
-                                         Name = "First forum",
-                                         PostCount = 48,
-                                         TopicCount = 32
-                                     },
-                                 new ForumSummary
-                                     {
-                                         Id = 2,
-                                         Name = "Second forum",
-                                         PostCount = 2,
-                                         TopicCount = 1
-                                     },
-                                 new ForumSummary
-                                     {
-                                         Id = 3,
-                                         Name = "Third forum",
-                                         PostCount = 0,
-                                         TopicCount = 5
-                                     },
-                             };
+            var forums = _repository.GetAll();
             return View(forums);
         }
 
         //
         // GET: /Forum/Details/5
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
             var forum = new ForumDetail
                             {
@@ -81,7 +67,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         //
         // GET: /Forum/Create
 
-        public ActionResult Create()
+        public ViewResult Create()
         {
             return View(new ForumInput());
         }
@@ -107,7 +93,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         //
         // GET: /Forum/Edit/5
 
-        public ActionResult Edit(int id)
+        public ViewResult Edit(int id)
         {
             var forum = new ForumInput {Name = "Some name to edit"};
             return View(forum);
@@ -134,7 +120,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         //
         // GET: /Forum/Delete/5
 
-        public ActionResult Delete(int id)
+        public ViewResult Delete(int id)
         {
             ViewData["CancelId"] = id;
             ViewData["CancelAction"] = "Details";

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Weblitz.Mvc.Forum.Web.ViewModels
+﻿namespace Weblitz.Mvc.Forum.Web.Models
 {
     public class DeleteItem
     {

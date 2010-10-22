@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace Weblitz.Mvc.Forum.Web.ViewModels
+namespace Weblitz.Mvc.Forum.Web.Models
 {
     public class TopicInput
     {
-        [Required, StringLength(255)]
+        [Required, StringLength(256)]
         public string Title { get; set; }
 
         [Required, DataType(DataType.MultilineText)]

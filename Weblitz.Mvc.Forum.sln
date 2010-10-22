@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Core", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Infrastructure", "Weblitz.Mvc.Forum.Infrastructure\Weblitz.Mvc.Forum.Infrastructure.csproj", "{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Db", "Weblitz.Mvc.Forum.Db\Weblitz.Mvc.Forum.Db.csproj", "{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

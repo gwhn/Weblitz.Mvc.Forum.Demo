@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Weblitz.Mvc.Forum.Web.ViewModels
+namespace Weblitz.Mvc.Forum.Web.Models
 {
     public class PostInput
     {
         [ScaffoldColumn(false)]
         public int TopicId { get; set; }
 
-        [Required, StringLength(255)]
+        [Required, StringLength(256)]
         public string Author { get; set; }
 
         [Required, DataType(DataType.MultilineText)]

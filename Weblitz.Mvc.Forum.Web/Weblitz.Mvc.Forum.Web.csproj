@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -78,18 +79,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DeleteItem.cs" />
+    <Compile Include="Models\ForumDetail.cs" />
+    <Compile Include="Models\ForumInput.cs" />
+    <Compile Include="Models\ForumSummary.cs" />
+    <Compile Include="Models\PostDetail.cs" />
+    <Compile Include="Models\PostInput.cs" />
+    <Compile Include="Models\SearchQuery.cs" />
+    <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\TopicDetail.cs" />
+    <Compile Include="Models\TopicInput.cs" />
+    <Compile Include="Models\TopicSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\DeleteItem.cs" />
-    <Compile Include="ViewModels\ForumDetail.cs" />
-    <Compile Include="ViewModels\ForumInput.cs" />
-    <Compile Include="ViewModels\ForumSummary.cs" />
-    <Compile Include="ViewModels\PostDetail.cs" />
-    <Compile Include="ViewModels\PostInput.cs" />
-    <Compile Include="ViewModels\SearchQuery.cs" />
-    <Compile Include="ViewModels\SearchResult.cs" />
-    <Compile Include="ViewModels\TopicDetail.cs" />
-    <Compile Include="ViewModels\TopicInput.cs" />
-    <Compile Include="ViewModels\TopicSummary.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnetdb.mdf" />
@@ -160,6 +161,10 @@
     <ProjectReference Include="..\Weblitz.Mvc.Forum.Core\Weblitz.Mvc.Forum.Core.csproj">
       <Project>{5F1045F7-2D42-47B8-AF82-B779DFC955BB}</Project>
       <Name>Weblitz.Mvc.Forum.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Weblitz.Mvc.Forum.Db\Weblitz.Mvc.Forum.Db.csproj">
+      <Project>{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}</Project>
+      <Name>Weblitz.Mvc.Forum.Db</Name>
     </ProjectReference>
     <ProjectReference Include="..\Weblitz.Mvc.Forum.Infrastructure\Weblitz.Mvc.Forum.Infrastructure.csproj">
       <Project>{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}</Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Weblitz.Mvc.Forum.Web.ViewModels;
+using Weblitz.Mvc.Forum.Web.Models;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
 {

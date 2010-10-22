@@ -9,7 +9,8 @@ namespace Weblitz.Mvc.Forum.Web.Bootstrappers
     {
         public static void Initialize()
         {
-            ObjectFactory.Initialize(x => x.AddRegistry(new ForumRegistry()));
+            ObjectFactory.Initialize(x => x.AddRegistry<ForumRegistry>());
+
             ControllerBuilder.Current.SetControllerFactory(new ForumControllerFactory());
         }
     }

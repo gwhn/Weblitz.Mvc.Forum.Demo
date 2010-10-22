@@ -1,4 +1,5 @@
 using System;
+using Weblitz.Mvc.Forum.Core.Interfaces;
 
 namespace Weblitz.Mvc.Forum.Infrastructure.Services
 {
