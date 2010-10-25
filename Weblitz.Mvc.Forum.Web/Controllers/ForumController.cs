@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Weblitz.Mvc.Forum.Core.Interfaces;
-using Weblitz.Mvc.Forum.Infrastructure.Services;
+using Weblitz.Mvc.Forum.Db;
 using Weblitz.Mvc.Forum.Web.Models;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
 {
     public class ForumController : Controller
     {
-        private readonly IRepository<Db.Forum> _repository;
-
-        public ForumController(IRepository<Db.Forum> repository)
-        {
-            _repository = repository;
-        }
+        private readonly ForumEntities _context = new ForumEntities();
 
         //
         // GET: /Forum/
 
         public ViewResult Index()
         {
-            var forums = _repository.GetAll();
-            return View(forums);
+            var forums = _context.Forums;
+            var summary = AutoMapper.Mapper.Map<IEnumerable<Db.Forum>, IEnumerable<ForumSummary>>(forums);
+            return View(summary);
         }
 
         //

@@ -10,10 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2701D033-C
 		README = README
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Core", "Weblitz.Mvc.Forum.Core\Weblitz.Mvc.Forum.Core.csproj", "{5F1045F7-2D42-47B8-AF82-B779DFC955BB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Infrastructure", "Weblitz.Mvc.Forum.Infrastructure\Weblitz.Mvc.Forum.Infrastructure.csproj", "{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weblitz.Mvc.Forum.Db", "Weblitz.Mvc.Forum.Db\Weblitz.Mvc.Forum.Db.csproj", "{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}"
 EndProject
 Global
@@ -30,14 +26,6 @@ Global
 		{417AD1FF-CAD6-432B-B97F-F889ECF9C09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{417AD1FF-CAD6-432B-B97F-F889ECF9C09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{417AD1FF-CAD6-432B-B97F-F889ECF9C09F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F1045F7-2D42-47B8-AF82-B779DFC955BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F1045F7-2D42-47B8-AF82-B779DFC955BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F1045F7-2D42-47B8-AF82-B779DFC955BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F1045F7-2D42-47B8-AF82-B779DFC955BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Weblitz.Mvc.Forum.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Weblitz.Mvc.Forum.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="WeblitzMvcForumModelStoreContainer">
           <EntitySet Name="Forums" EntityType="Weblitz.Mvc.Forum.Model.Store.Forums" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Posts" EntityType="Weblitz.Mvc.Forum.Model.Store.Posts" store:Type="Tables" Schema="dbo" />
@@ -34,7 +34,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="TopicId" Type="int" Nullable="false" />
+          <Property Name="TopicId" Type="int" />
           <Property Name="ParentId" Type="int" />
           <Property Name="Body" Type="text" Nullable="false" />
           <Property Name="Author" Type="nvarchar" Nullable="false" MaxLength="256" />
@@ -65,7 +65,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Posts_Topics">
-          <End Role="Topics" Type="Weblitz.Mvc.Forum.Model.Store.Topics" Multiplicity="1" />
+          <End Role="Topics" Type="Weblitz.Mvc.Forum.Model.Store.Topics" Multiplicity="0..1" />
           <End Role="Posts" Type="Weblitz.Mvc.Forum.Model.Store.Posts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topics">
@@ -88,8 +88,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Weblitz.Mvc.Forum.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -98,117 +97,129 @@
           <EntitySet Name="Posts" EntityType="Weblitz.Mvc.Forum.Model.Post" />
           <EntitySet Name="Topics" EntityType="Weblitz.Mvc.Forum.Model.Topic" />
           <AssociationSet Name="FK_Topics_Forums" Association="Weblitz.Mvc.Forum.Model.FK_Topics_Forums">
-            <End Role="Forums" EntitySet="Forums" />
-            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Forum" EntitySet="Forums" />
+            <End Role="Topic" EntitySet="Topics" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Posts" Association="Weblitz.Mvc.Forum.Model.FK_Posts_Posts">
-            <End Role="Posts" EntitySet="Posts" />
-            <End Role="Posts1" EntitySet="Posts" />
+            <End Role="Parent" EntitySet="Posts" />
+            <End Role="Child" EntitySet="Posts" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Topics" Association="Weblitz.Mvc.Forum.Model.FK_Posts_Topics">
-            <End Role="Topics" EntitySet="Topics" />
-            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="Post" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Forum">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Topics" Relationship="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" FromRole="Forums" ToRole="Topics" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Topics" Relationship="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" FromRole="Forum" ToRole="Topic" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TopicId" Type="Int32" Nullable="false" />
-          <Property Name="ParentId" Type="Int32" />
-          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="Author" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
-          <Property Name="PublishedDate" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Children" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" FromRole="Posts" ToRole="Posts1" />
-          <NavigationProperty Name="Parent" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" FromRole="Posts1" ToRole="Posts" />
-          <NavigationProperty Name="Topic" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" FromRole="Posts" ToRole="Topics" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TopicId" Nullable="true" />
+          <Property Type="Int32" Name="ParentId" Nullable="true" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PublishedDate" Nullable="false" />
+          <NavigationProperty Name="Children" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" FromRole="Parent" ToRole="Child" />
+          <NavigationProperty Name="Parent" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" FromRole="Child" ToRole="Parent" />
+          <NavigationProperty Name="Topic" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" FromRole="Post" ToRole="Topic" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ForumId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
-          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="Author" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
-          <Property Name="PublishedDate" Type="DateTime" Nullable="false" />
-          <Property Name="Sticky" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Forum" Relationship="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" FromRole="Topics" ToRole="Forums" />
-          <NavigationProperty Name="Posts" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" FromRole="Topics" ToRole="Posts" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ForumId" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PublishedDate" Nullable="false" />
+          <Property Type="Boolean" Name="Sticky" Nullable="false" />
+          <NavigationProperty Name="Forum" Relationship="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" FromRole="Topic" ToRole="Forum" />
+          <NavigationProperty Name="Posts" Relationship="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" FromRole="Topic" ToRole="Post" />
         </EntityType>
         <Association Name="FK_Topics_Forums">
-          <End Role="Forums" Type="Weblitz.Mvc.Forum.Model.Forum" Multiplicity="1" />
-          <End Role="Topics" Type="Weblitz.Mvc.Forum.Model.Topic" Multiplicity="*" />
+          <End Type="Weblitz.Mvc.Forum.Model.Forum" Role="Forum" Multiplicity="1" />
+          <End Type="Weblitz.Mvc.Forum.Model.Topic" Role="Topic" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Forums">
+            <Principal Role="Forum">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Topics">
+            <Dependent Role="Topic">
               <PropertyRef Name="ForumId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Posts_Posts">
-          <End Role="Posts" Type="Weblitz.Mvc.Forum.Model.Post" Multiplicity="0..1" />
-          <End Role="Posts1" Type="Weblitz.Mvc.Forum.Model.Post" Multiplicity="*" />
+          <End Type="Weblitz.Mvc.Forum.Model.Post" Role="Parent" Multiplicity="0..1" />
+          <End Type="Weblitz.Mvc.Forum.Model.Post" Role="Child" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Posts">
+            <Principal Role="Parent">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Posts1">
+            <Dependent Role="Child">
               <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Posts_Topics">
-          <End Role="Topics" Type="Weblitz.Mvc.Forum.Model.Topic" Multiplicity="1" />
-          <End Role="Posts" Type="Weblitz.Mvc.Forum.Model.Post" Multiplicity="*" />
+          <End Type="Weblitz.Mvc.Forum.Model.Topic" Role="Topic" Multiplicity="0..1" />
+          <End Type="Weblitz.Mvc.Forum.Model.Post" Role="Post" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Topics">
+            <Principal Role="Topic">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Posts">
+            <Dependent Role="Post">
               <PropertyRef Name="TopicId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WeblitzMvcForumModelStoreContainer" CdmEntityContainer="ForumEntities">
-          <EntitySetMapping Name="Forums"><EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Forum"><MappingFragment StoreEntitySet="Forums">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="Name" ColumnName="Name" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Posts"><EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Post"><MappingFragment StoreEntitySet="Posts">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="TopicId" ColumnName="TopicId" />
-            <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-            <ScalarProperty Name="Body" ColumnName="Body" />
-            <ScalarProperty Name="Author" ColumnName="Author" />
-            <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Topics"><EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Topic"><MappingFragment StoreEntitySet="Topics">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="ForumId" ColumnName="ForumId" />
-            <ScalarProperty Name="Title" ColumnName="Title" />
-            <ScalarProperty Name="Body" ColumnName="Body" />
-            <ScalarProperty Name="Author" ColumnName="Author" />
-            <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
-            <ScalarProperty Name="Sticky" ColumnName="Sticky" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Forums">
+            <EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Forum">
+              <MappingFragment StoreEntitySet="Forums">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="Weblitz.Mvc.Forum.Model.Topic">
+              <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ForumId" ColumnName="ForumId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -225,26 +236,26 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="ForumModel">
-        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Forum" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937500002" IsExpanded="true" />
-        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Post" Width="1.5" PointX="5.25" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Topic" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" IsExpanded="true" />
-        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.2978417968750002" />
-          <ConnectorPoint PointX="3" PointY="2.2978417968750002" />
+        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Forum" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Post" Width="1.5" PointX="5.25" PointY="1" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Weblitz.Mvc.Forum.Model.Topic" Width="1.5" PointX="3" PointY="1" Height="2.7494921874999996" />
+        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Topics_Forums" >
+          <ConnectorPoint PointX="2.25" PointY="2.297841796875" />
+          <ConnectorPoint PointX="3" PointY="2.297841796875" />
         </AssociationConnector>
-        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" ManuallyRouted="false">
+        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Posts_Posts" >
           <ConnectorPoint PointX="5.7819230769230767" PointY="3.7494921874999996" />
           <ConnectorPoint PointX="5.7819230769230767" PointY="3.9994921874999996" />
           <ConnectorPoint PointX="6.2284615384615378" PointY="3.9994921874999996" />
           <ConnectorPoint PointX="6.2284615384615378" PointY="3.7494921874999996" />
         </AssociationConnector>
-        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" ManuallyRouted="false">
+        <AssociationConnector Association="Weblitz.Mvc.Forum.Model.FK_Posts_Topics" >
           <ConnectorPoint PointX="4.5" PointY="2.37474609375" />
           <ConnectorPoint PointX="5.25" PointY="2.37474609375" />
         </AssociationConnector>

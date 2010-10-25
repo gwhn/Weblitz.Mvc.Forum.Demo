@@ -10,51 +10,51 @@ namespace Weblitz.Mvc.Forum.Infrastructure.Services
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        IObjectSet<T> _objectSet;
+        protected readonly IObjectSet<T> ObjectSet;
 
-        public Repository(IObjectContext objectContext)
+        public Repository(IObjectContext adapter)
         {
-            _objectSet = objectContext.CreateObjectSet<T>();
+            ObjectSet = adapter.CreateObjectSet<T>();
         }
 
-        public IQueryable<T> AsQueryable()
+        public virtual IQueryable<T> AsQueryable()
         {
-            return _objectSet;
+            return ObjectSet;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
-            return _objectSet.ToList();
+            return ObjectSet.ToList();
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> where)
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> where)
         {
-            return _objectSet.Where(where);
+            return ObjectSet.Where(where);
         }
 
-        public T Single(Expression<Func<T, bool>> where)
+        public virtual T Single(Expression<Func<T, bool>> where)
         {
-            return _objectSet.Single(where);
+            return ObjectSet.Single(where);
         }
 
-        public T First(Expression<Func<T, bool>> where)
+        public virtual T First(Expression<Func<T, bool>> where)
         {
-            return _objectSet.First(where);
+            return ObjectSet.First(where);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
-            _objectSet.DeleteObject(entity);
+            ObjectSet.DeleteObject(entity);
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
-            _objectSet.AddObject(entity);
+            ObjectSet.AddObject(entity);
         }
 
-        public void Attach(T entity)
+        public virtual void Attach(T entity)
         {
-            _objectSet.Attach(entity);
+            ObjectSet.Attach(entity);
         }
     }
 }

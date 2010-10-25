@@ -1,4 +1,3 @@
-using System;
 using System.Data.Objects;
 using Weblitz.Mvc.Forum.Core.Interfaces;
 
@@ -6,7 +5,7 @@ namespace Weblitz.Mvc.Forum.Infrastructure.Services
 {
     public class ObjectContextAdapter : IObjectContext
     {
-        readonly ObjectContext _context;
+        private readonly ObjectContext _context;
 
         public ObjectContextAdapter(ObjectContext context)
         {

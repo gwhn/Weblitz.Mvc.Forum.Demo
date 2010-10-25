@@ -76,9 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrappers\AutoMapperConfig.cs" />
-    <Compile Include="Bootstrappers\StructureMapConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Factories\ForumControllerFactory.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
@@ -104,6 +102,10 @@
     <Content Include="App_Data\aspnetdb.mdf" />
     <Content Include="App_Data\aspnetdb_log.LDF">
       <DependentUpon>aspnetdb.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\WeblitzMvcForum.mdf" />
+    <Content Include="App_Data\WeblitzMvcForum_log.ldf">
+      <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Images\sticky.jpg" />
     <Content Include="Global.asax" />
@@ -166,17 +168,9 @@
     <Folder Include="Views\Topic\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Weblitz.Mvc.Forum.Core\Weblitz.Mvc.Forum.Core.csproj">
-      <Project>{5F1045F7-2D42-47B8-AF82-B779DFC955BB}</Project>
-      <Name>Weblitz.Mvc.Forum.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Weblitz.Mvc.Forum.Db\Weblitz.Mvc.Forum.Db.csproj">
       <Project>{8FDF05AB-ADBC-4E39-8F5A-B073EC27545E}</Project>
       <Name>Weblitz.Mvc.Forum.Db</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Weblitz.Mvc.Forum.Infrastructure\Weblitz.Mvc.Forum.Infrastructure.csproj">
-      <Project>{FBDCC9F3-C1AB-4209-BAF7-F76ACF313768}</Project>
-      <Name>Weblitz.Mvc.Forum.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -194,7 +188,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50221</DevelopmentServerPort>
+          <DevelopmentServerPort>63423</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

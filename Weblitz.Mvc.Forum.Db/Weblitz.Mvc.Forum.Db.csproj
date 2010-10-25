@@ -58,39 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forum.cs">
-      <DependentUpon>ForumModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ForumModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ForumModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ForumModel.cs">
-      <DependentUpon>ForumModel.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="ForumModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ForumModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Post.cs">
-      <DependentUpon>ForumModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Topic.cs">
-      <DependentUpon>ForumModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WeblitzMvcForum.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="WeblitzMvcForum.mdf" />
     <Content Include="WeblitzMvcForum_log.ldf">
-      <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -133,14 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="ForumModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ForumModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="ForumModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ForumModel.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

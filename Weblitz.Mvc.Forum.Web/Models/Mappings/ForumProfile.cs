@@ -39,6 +39,8 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
                            o => o.Ignore());
 
             CreateMap<Post, PostDetail>();
+
+            CreateMap<Post, PostInput>();
         }
 
         public override string ProfileName
