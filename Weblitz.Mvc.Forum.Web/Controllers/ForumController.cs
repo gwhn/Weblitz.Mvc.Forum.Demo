@@ -7,16 +7,29 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 {
     public class ForumController : Controller
     {
-        private readonly ForumEntities _context = new ForumEntities();
+//        private readonly ForumEntities context = new ForumEntities();
 
         //
         // GET: /Forum/
 
         public ViewResult Index()
         {
-            var forums = _context.Forums;
-            var summary = AutoMapper.Mapper.Map<IEnumerable<Db.Forum>, IEnumerable<ForumSummary>>(forums);
-            return View(summary);
+            using (var context = new ForumEntities())
+            {
+                var forums = context.Forums.Include("Topics");
+                foreach (var forum in forums)
+                {
+                    foreach (var topic in forum.Topics)
+                    {
+                        if (!topic.Posts.IsLoaded)
+                        {
+                            topic.Posts.Load();
+                        }
+                    }
+                }
+                var summaries = AutoMapper.Mapper.Map<IEnumerable<Db.Forum>, IEnumerable<ForumSummary>>(forums);
+                return View(summaries);                
+            }
         }
 
         //

@@ -10,10 +10,10 @@ using Weblitz.Mvc.Forum.Db;
 namespace Weblitz.Mvc.Forum.Web.Tests.Services
 {
     [TestFixture]
-    class ForumRepositoryTests
+    class ForumEntitiesTests
     {
         [Test]
-        public void ShouldGetAllForums()
+        public void ShouldGetAllForumsWithTheirTopicsAndEachTopicsPostsAndTheirChildrenRecursively()
         {
             using (var context = new ForumEntities())
             {
@@ -45,7 +45,6 @@ namespace Weblitz.Mvc.Forum.Web.Tests.Services
                         foreach (var post in topic.Posts)
                         {
                             DebugChildren(post, 0);
-
                         }
                     }
                 }

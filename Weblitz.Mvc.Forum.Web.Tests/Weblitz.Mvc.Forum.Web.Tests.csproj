@@ -72,7 +72,7 @@
     <Compile Include="Mappings\AutoMapperConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\AccountControllerTest.cs" />
-    <Compile Include="Services\ForumRepositoryTests.cs" />
+    <Compile Include="Services\ForumEntitiesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

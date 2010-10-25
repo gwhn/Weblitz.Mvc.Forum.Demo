@@ -122,7 +122,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="TopicId" Nullable="true" />
+          <Property Type="Int32" Name="TopicId" />
           <Property Type="Int32" Name="ParentId" Nullable="true" />
           <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Author" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
