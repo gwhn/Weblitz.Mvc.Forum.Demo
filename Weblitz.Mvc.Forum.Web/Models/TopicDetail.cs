@@ -2,20 +2,20 @@
 {
     public class TopicDetail
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
-        public string Title { get; internal set; }
+        public string Title { get; set; }
         
-        public string Body { get; internal set; }
+        public string Body { get; set; }
         
-        public string Forum { get; internal set; }
+        public string Forum { get; set; }
         
-        public string Author { get; internal set; }
+        public string Author { get; set; }
         
-        public string PublishedDate { get; internal set; }
+        public string PublishedDate { get; set; }
         
-        public PostDetail[] Posts { get; internal set; }
+        public PostDetail[] Posts { get; set; }
 
-        public PostInput NewPost { get; internal set; }
+        public PostInput NewPost { get; set; }
     }
 }

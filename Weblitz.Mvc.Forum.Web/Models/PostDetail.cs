@@ -2,12 +2,12 @@
 {
     public class PostDetail
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
-        public string Body { get; internal set; }
+        public string Body { get; set; }
         
-        public string Author { get; internal set; }
+        public string Author { get; set; }
         
-        public string PublishedDate { get; internal set; }
+        public string PublishedDate { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Weblitz.Mvc.Forum.Web.Bootstrappers;
+using Weblitz.Mvc.Forum.Web.Controllers.Factories;
 
 namespace Weblitz.Mvc.Forum.Web
 {
@@ -31,7 +32,11 @@ namespace Weblitz.Mvc.Forum.Web
 
             RegisterRoutes(RouteTable.Routes);
 
-            StructureMapBootstrapper.Initialize();
+            StructureMapConfig.Initialize();
+
+            ControllerBuilder.Current.SetControllerFactory(new ForumControllerFactory());
+
+            AutoMapperConfig.Initialize();
         }
     }
 }

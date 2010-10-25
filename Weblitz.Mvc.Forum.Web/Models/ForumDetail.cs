@@ -2,10 +2,10 @@
 {
     public class ForumDetail
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
         
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         
-        public TopicSummary[] Topics { get; internal set; }
+        public TopicSummary[] Topics { get; set; }
     }
 }

@@ -25,11 +25,12 @@ namespace Weblitz.Mvc.Forum.Web.Tests.Controllers
         private MockRepository _mock;
 
         [Test]
-        public void ShouldListForumsOnIndexAction()
+        public void ShouldListMultipleForumsOnIndexAction()
         {
             // Arrange
             var repository = MockRepository.GenerateStub<IRepository<Db.Forum>>();
             var forums = ForumDbFixtures.ListWithMultipleForums();
+            Assert.That(forums.Count > 1);
             repository.Stub(f => f.GetAll()).Return(forums);
 
             // Act
@@ -38,68 +39,82 @@ namespace Weblitz.Mvc.Forum.Web.Tests.Controllers
 
             // Assert
             Assert.AreEqual(string.Empty, result.ViewName);
-            Assert.AreEqual(forums, result.ViewData.Model);
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsInstanceOf<ICollection<Db.Forum>>(result.ViewData.Model);
+            var viewForums = result.ViewData.Model as ICollection<Db.Forum>;
+            Assert.AreEqual(forums, viewForums);
+            Assert.AreEqual(forums.Count, viewForums.Count);
             repository.AssertWasCalled(f => f.GetAll());
-
-//            using (var work = ObjectFactory.GetInstance<UnitOfWork>())
-//            {
-//                var service = ObjectFactory.GetInstance<Repository<Db.Forum>>();
-//                var forums = service.GetAll();
-//                foreach (var forum in forums)
-//                {                
-//                    Debug.WriteLine("Id={0};Name={1}", forum.Id, forum.Name);
-//                }
-//                work.Commit();
-//            }
-
-//            using (var adapter = new ObjectContextAdapter(new ForumEntities()))
-//            using (var work = new UnitOfWork(adapter))
-//            {
-//                var service = new Repository<Db.Forum>(adapter);
-//                var forums = service.GetAll();
-//                foreach (var forum in forums)
-//                {                
-//                    Debug.WriteLine("Id={0};Name={1}", forum.Id, forum.Name);
-//                }
-//                work.Commit();
-//            }
         }
 
         [Test]
-        public void ShouldShowForumOnDetailsAction()
+        public void ShouldListSingleForumsOnIndexAction()
         {
             // Arrange
             var repository = MockRepository.GenerateStub<IRepository<Db.Forum>>();
-            var forum = new Db.Forum
-                            {
-                                Id = 1234,
-                                Name = "Selected Forum",
-                                Topics = new List<Db.Topic>
-                                             {
-                                                 new Db.Topic
-                                                     {
-                                                         Id = 4321,
-                                                         Author = "Test User",
-                                                         Body = "Body of Topic 1",
-                                                         PublishedDate = new DateTime(2010, 1, 1),
-                                                         Sticky = false
-                                                     },
-                                                 new Db.Topic
-                                                     {
-                                                         Id = 5432,
-                                                         Author = "Another Test User",
-                                                         Body = "Body of Sticky Topic 2",
-                                                         PublishedDate = new DateTime(2010, 2, 1),
-                                                         Sticky = true
-                                                     }
-                                             }
-                            };
-
+            var forums = ForumDbFixtures.ListWithOneForum();
+            Assert.That(forums.Count == 1);
+            repository.Stub(f => f.GetAll()).Return(forums);
 
             // Act
+            var controller = new ForumController(repository);
+            var result = controller.Index();
 
             // Assert
-            Assert.Fail("Nothing to assert");
+            Assert.AreEqual(string.Empty, result.ViewName);
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsInstanceOf<ICollection<Db.Forum>>(result.ViewData.Model);
+            var viewForums = result.ViewData.Model as ICollection<Db.Forum>;
+            Assert.AreEqual(forums, viewForums);
+            Assert.AreEqual(forums.Count, viewForums.Count);
+            repository.AssertWasCalled(f => f.GetAll());
+        }
+
+        [Test]
+        public void ShouldListNoForumsOnIndexAction()
+        {
+            // Arrange
+            var repository = MockRepository.GenerateStub<IRepository<Db.Forum>>();
+            var forums = ForumDbFixtures.ListWithNoForums();
+            Assert.That(forums.Count == 0);
+            repository.Stub(f => f.GetAll()).Return(forums);
+
+            // Act
+            var controller = new ForumController(repository);
+            var result = controller.Index();
+
+            // Assert
+            Assert.AreEqual(string.Empty, result.ViewName);
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsInstanceOf<ICollection<Db.Forum>>(result.ViewData.Model);
+            var viewForums = result.ViewData.Model as ICollection<Db.Forum>;
+            Assert.AreEqual(forums, viewForums);
+            Assert.AreEqual(forums.Count, viewForums.Count);
+            repository.AssertWasCalled(f => f.GetAll());
+        }
+
+        [Test]
+        public void ShouldShowForumWithNoTopicsOnDetailsAction()
+        {
+            // Arrange
+            var repository = MockRepository.GenerateStub<IRepository<Db.Forum>>();
+            var id = 1234;
+            var forum = ForumDbFixtures.ForumWithNoTopics(id);
+            Assert.That(forum.Id == id);
+            repository.Stub(f => f.Single(w => w.Id == id)).Return(forum);
+
+            // Act
+            var controller = new ForumController(repository);
+            var result = controller.Details(id);
+
+            // Assert
+            Assert.AreEqual(string.Empty, result.ViewName);
+            Assert.IsNotNull(result.ViewData.Model);
+            Assert.IsInstanceOf<Db.Forum>(result.ViewData.Model);
+            var viewForum = result.ViewData.Model as Db.Forum;
+            Assert.AreEqual(forum, viewForum);
+            Assert.That(viewForum.Topics.Count == 0);
+            repository.AssertWasCalled(f => f.Single(w => w.Id == id));
         }
     }
 }

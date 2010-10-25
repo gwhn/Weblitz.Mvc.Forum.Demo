@@ -2,12 +2,12 @@
 {
     public class TopicSummary
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
-        public string Title { get; internal set; }
+        public string Title { get; set; }
         
-        public int PostCount { get; internal set; }
+        public int PostCount { get; set; }
         
-        public bool IsSticky { get; internal set; }
+        public bool IsSticky { get; set; }
     }
 }
