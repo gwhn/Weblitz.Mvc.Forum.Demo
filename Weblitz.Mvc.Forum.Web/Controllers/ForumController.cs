@@ -95,9 +95,10 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 using (var context = new ForumEntities())
                 {
+
                     var forum = context.Forums.SingleOrDefault(f => f.Id == input.Id);
 
-                    forum = Mapper.Map<ForumInput, Db.Forum>(input);
+                    forum.Name = input.Name;
 
                     context.SaveChanges();
 
@@ -112,15 +113,18 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ViewResult Delete(int id)
         {
-            ViewData["CancelId"] = id;
-            ViewData["CancelAction"] = "Details";
-            ViewData["CancelController"] = RouteData.Values["Controller"];
-            var item = new DeleteItem
-                           {
-                               Id = id,
-                               Description = "Forum item selected for deletion"
-                           };
-            return View(item);
+            using (var context = new ForumEntities())
+            {
+                var forum = context.Forums.SingleOrDefault(f => f.Id == id);
+
+                var display = Mapper.Map<Db.Forum, DeleteItem>(forum);
+
+                ViewData["CancelId"] = id;
+                ViewData["CancelAction"] = "Details";
+                ViewData["CancelController"] = RouteData.Values["Controller"];
+
+                return View(display);
+            }
         }
 
         //
@@ -129,15 +133,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
-            try
+            using (var context = new ForumEntities())
             {
-                // TODO: Add delete logic here
+                var forum = context.Forums.SingleOrDefault(f => f.Id == id);
+
+                context.DeleteObject(forum);
+
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
 

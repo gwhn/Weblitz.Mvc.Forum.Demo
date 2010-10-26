@@ -26,12 +26,6 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
                 .ForMember(d => d.IsSticky,
                            o => o.MapFrom(s => s.Sticky));
 
-            CreateMap<ForumInput, Db.Forum>()
-                .ForMember(d => d.Id,
-                           o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Topics,
-                           o => o.Ignore());
-
             CreateMap<Db.Forum, ForumInput>()
                 .ForMember(d => d.Id,
                            o => o.Ignore());
@@ -45,6 +39,18 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
             CreateMap<Post, PostDetail>();
 
             CreateMap<Post, PostInput>();
+
+            CreateMap<Db.Forum, DeleteItem>()
+                .ForMember(d => d.Description,
+                           o => o.MapFrom(s => s.Name));
+
+            CreateMap<Topic, DeleteItem>()
+                .ForMember(d => d.Description,
+                           o => o.MapFrom(s => s.Title));
+
+            CreateMap<Post, DeleteItem>()
+                .ForMember(d => d.Description,
+                           o => o.MapFrom(s => s.Body));
         }
 
         public override string ProfileName
