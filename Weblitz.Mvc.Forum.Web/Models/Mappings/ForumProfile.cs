@@ -28,8 +28,12 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
 
             CreateMap<ForumInput, Db.Forum>()
                 .ForMember(d => d.Id,
-                           o => o.Ignore())
+                           o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Topics,
+                           o => o.Ignore());
+
+            CreateMap<Db.Forum, ForumInput>()
+                .ForMember(d => d.Id,
                            o => o.Ignore());
 
             CreateMap<Topic, TopicDetail>()

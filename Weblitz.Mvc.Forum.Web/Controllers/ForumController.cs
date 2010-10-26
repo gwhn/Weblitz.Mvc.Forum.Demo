@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Data.Objects;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Weblitz.Mvc.Forum.Db;
 using Weblitz.Mvc.Forum.Web.Models;
 
@@ -7,8 +10,6 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 {
     public class ForumController : Controller
     {
-//        private readonly ForumEntities context = new ForumEntities();
-
         //
         // GET: /Forum/
 
@@ -16,19 +17,11 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         {
             using (var context = new ForumEntities())
             {
-                var forums = context.Forums.Include("Topics");
-                foreach (var forum in forums)
-                {
-                    foreach (var topic in forum.Topics)
-                    {
-                        if (!topic.Posts.IsLoaded)
-                        {
-                            topic.Posts.Load();
-                        }
-                    }
-                }
-                var summaries = AutoMapper.Mapper.Map<IEnumerable<Db.Forum>, IEnumerable<ForumSummary>>(forums);
-                return View(summaries);                
+                var forums = GetForums(context);
+
+                var summaries = Mapper.Map<IEnumerable<Db.Forum>, IEnumerable<ForumSummary>>(forums);
+
+                return View(summaries);
             }
         }
 
@@ -37,36 +30,14 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ViewResult Details(int id)
         {
-            var forum = new ForumDetail
-                            {
-                                Id = id,
-                                Name = "Selected forum",
-                                Topics = new[]
-                                             {
-                                                 new TopicSummary
-                                                     {
-                                                         Id = 11,
-                                                         IsSticky = true,
-                                                         PostCount = 43,
-                                                         Title = "First Topic in Selected Forum"
-                                                     },
-                                                 new TopicSummary
-                                                     {
-                                                         Id = 12,
-                                                         IsSticky = false,
-                                                         PostCount = 25,
-                                                         Title = "Second Topic in Selected Forum"
-                                                     },
-                                                 new TopicSummary
-                                                     {
-                                                         Id = 13,
-                                                         IsSticky = false,
-                                                         PostCount = 0,
-                                                         Title = "Third Topic in Selected Forum"
-                                                     }
-                                             }
-                            };
-            return View(forum);
+            using (var context = new ForumEntities())
+            {
+                var forum = GetForums(context).SingleOrDefault(f => f.Id == id);
+
+                var detail = Mapper.Map<Db.Forum, ForumDetail>(forum);
+
+                return View(detail);
+            }
         }
 
         //
@@ -83,16 +54,20 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost]
         public ActionResult Create(ForumInput input)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                using (var context = new ForumEntities())
+                {
+                    var forum = Db.Forum.CreateForum(0, input.Name);
 
-                return RedirectToAction("Details", new{Id = 123});
+                    context.Forums.AddObject(forum);
+
+                    context.SaveChanges();
+
+                    return RedirectToAction("Details", new {forum.Id});
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(new ForumInput());
         }
 
         //
@@ -100,26 +75,36 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ViewResult Edit(int id)
         {
-            var forum = new ForumInput {Name = "Some name to edit"};
-            return View(forum);
+            using (var context = new ForumEntities())
+            {
+                var forum = context.Forums.SingleOrDefault(f => f.Id == id);
+
+                var input = Mapper.Map<Db.Forum, ForumInput>(forum);
+
+                return View(input);
+            }
         }
 
         //
         // POST: /Forum/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, ForumInput input)
+        public ActionResult Edit(ForumInput input)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                using (var context = new ForumEntities())
+                {
+                    var forum = context.Forums.SingleOrDefault(f => f.Id == input.Id);
 
-                return RedirectToAction("Details", new{Id = id});
+                    forum = Mapper.Map<ForumInput, Db.Forum>(input);
+
+                    context.SaveChanges();
+
+                    return RedirectToAction("Details", new {forum.Id});
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(input);
         }
 
         //
@@ -172,6 +157,16 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 return View();
             }
+        }
+
+        private static ObjectQuery<Db.Forum> GetForums(ForumEntities context)
+        {
+            var forums = context.Forums.Include("Topics");
+            foreach (var topic in forums.SelectMany(f => f.Topics))
+            {
+                topic.Posts.Load();
+            }
+            return forums;
         }
     }
 }
