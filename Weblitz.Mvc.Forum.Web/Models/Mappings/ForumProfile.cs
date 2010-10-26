@@ -34,7 +34,7 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
                 .ForMember(d => d.Forum,
                            o => o.MapFrom(s => s.Forum.Name))
                 .ForMember(d => d.NewPost,
-                           o => o.Ignore());
+                           o => o.MapFrom(s => new PostInput{TopicId = s.Id}));
 
             CreateMap<Post, PostDetail>();
 

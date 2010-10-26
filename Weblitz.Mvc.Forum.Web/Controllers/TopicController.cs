@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using Weblitz.Mvc.Forum.Db;
 using Weblitz.Mvc.Forum.Web.Models;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
@@ -14,42 +16,17 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var topic = new TopicDetail
-                            {
-                                Author = "Selected Topic Author",
-                                Body = "Body of Selected Topic",
-                                Forum = "Forum that Selected Topic belongs to",
-                                Id = id,
-                                NewPost = new PostInput{ TopicId = id },
-                                Posts = new[]
-                                            {
-                                                new PostDetail
-                                                    {
-                                                        Author = "First Post of Selected Topic Author",
-                                                        Body = "Body of First Post of Selected Topic",
-                                                        Id = 31,
-                                                        PublishedDate = DateTime.Today.ToShortDateString()
-                                                    },
-                                                new PostDetail
-                                                    {
-                                                        Author = "Second Post of Selected Topic Author",
-                                                        Body = "Body of Second Post of Selected Topic",
-                                                        Id = 32,
-                                                        PublishedDate =
-                                                            DateTime.Today.Subtract(new TimeSpan(2, 0, 0, 0)).ToString()
-                                                    },
-                                                new PostDetail
-                                                    {
-                                                        Author = "Third Post of Selected Topic Author",
-                                                        Body = "Body of Third Post of Selected Topic",
-                                                        Id = 33,
-                                                        PublishedDate =
-                                                            DateTime.Today.Subtract(new TimeSpan(20, 0, 0, 0)).ToString()
-                                                    }
-                                            },
-                                Title = "Title of Selected Article"
-                            };
-            return View(topic);
+            using (var context = new ForumEntities())
+            {
+                var topic = context.Topics
+                    .Include("Forum")
+                    .Include("Posts")
+                    .SingleOrDefault(t => t.Id == id);
+
+                var detail = Mapper.Map<Topic, TopicDetail>(topic);
+
+                return View(detail);
+            }
         }
 
         //
@@ -57,12 +34,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Create(int forumId)
         {
-            ViewData["Forum"] = "The forum in the current context";
-            var topic = new TopicInput
-                            {
-                                ForumId = forumId
-                            };
-            return View(topic);
+            using (var context = new ForumEntities())
+            {
+                var input = new TopicInput
+                                {
+                                    Forums = new SelectList(context.Forums.OrderBy(f => f.Name).ToList(), "Id", "Name")
+                                };
+
+                return View(input);
+            }
         }
 
         //
@@ -71,15 +51,16 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost]
         public ActionResult Create(TopicInput input)
         {
-            try
+            using (var context = new ForumEntities())
             {
-                // TODO: Add insert logic here
+                var topic = Topic.CreateTopic(0, input.ForumId, input.Title, input.Body, "tempuser", DateTime.Now,
+                                              input.IsSticky);
 
-                return RedirectToAction("Details", new {Id = 123});
-            }
-            catch
-            {
-                return View();
+                context.Topics.AddObject(topic);
+
+                context.SaveChanges();
+
+                return RedirectToAction("Details", new {topic.Id});
             }
         }
 
@@ -126,10 +107,10 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             ViewData["CancelAction"] = "Details";
             ViewData["CancelController"] = RouteData.Values["Controller"];
             var item = new DeleteItem
-            {
-                Id = id,
-                Description = "Topic item selected for deletion"
-            };
+                           {
+                               Id = id,
+                               Description = "Topic item selected for deletion"
+                           };
             return View(item);
         }
 
@@ -142,7 +123,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
-                return RedirectToAction("Details", "Forum", new{Id = 312});
+                return RedirectToAction("Details", "Forum", new {Id = 312});
             }
             catch
             {
