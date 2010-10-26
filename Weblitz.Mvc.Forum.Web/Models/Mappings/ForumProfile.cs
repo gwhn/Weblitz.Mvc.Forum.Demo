@@ -36,6 +36,10 @@ namespace Weblitz.Mvc.Forum.Web.Models.Mappings
                 .ForMember(d => d.NewPost,
                            o => o.MapFrom(s => new PostInput{TopicId = s.Id}));
 
+            CreateMap<Topic, TopicInput>()
+                .ForMember(d => d.IsSticky,
+                           o => o.MapFrom(s => s.Sticky));
+
             CreateMap<Post, PostDetail>();
 
             CreateMap<Post, PostInput>();

@@ -2,8 +2,10 @@
 {
     public class DeleteItem
     {
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
-        public string Description { get; internal set; }
+        public string Description { get; set; }
+
+        public CancelNavigation CancelNavigation { get; set; }
     }
 }

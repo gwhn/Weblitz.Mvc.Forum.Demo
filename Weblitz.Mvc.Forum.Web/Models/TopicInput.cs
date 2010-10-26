@@ -22,6 +22,7 @@ namespace Weblitz.Mvc.Forum.Web.Models
         [ScaffoldColumn(false), DisplayName("Forum")]
         public int ForumId { get; set; }
 
+        [ScaffoldColumn(false)]
         public IEnumerable<SelectListItem> Forums { get; set; }
     }
 }

@@ -84,6 +84,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CancelNavigation.cs" />
     <Compile Include="Models\DeleteItem.cs" />
     <Compile Include="Models\ForumDetail.cs" />
     <Compile Include="Models\ForumInput.cs" />

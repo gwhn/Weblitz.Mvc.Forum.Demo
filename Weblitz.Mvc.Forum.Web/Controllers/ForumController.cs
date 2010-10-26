@@ -95,7 +95,6 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
             {
                 using (var context = new ForumEntities())
                 {
-
                     var forum = context.Forums.SingleOrDefault(f => f.Id == input.Id);
 
                     forum.Name = input.Name;
@@ -119,9 +118,9 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
                 var display = Mapper.Map<Db.Forum, DeleteItem>(forum);
 
-                ViewData["CancelId"] = id;
-                ViewData["CancelAction"] = "Details";
-                ViewData["CancelController"] = RouteData.Values["Controller"];
+                display.CancelNavigation = new CancelNavigation("Details",
+                                                                RouteData.Values["Controller"] as string,
+                                                                new {id});
 
                 return View(display);
             }

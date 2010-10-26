@@ -69,33 +69,41 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            ViewData["Forum"] = "This is the forum for the current context";
-            var topic = new TopicInput
-                            {
-                                ForumId = 321,
-                                Body = "This is the body of text to edit for the selected topic",
-                                IsSticky = false,
-                                Title = "Title of the topic"
-                            };
-            return View(topic);
+            using (var context = new ForumEntities())
+            {
+                var topic = context.Topics.Include("Forum").SingleOrDefault(f => f.Id == id);
+
+                var input = Mapper.Map<Topic, TopicInput>(topic);
+
+                input.Forums = new SelectList(context.Forums.OrderBy(f => f.Name).ToList(), "Id", "Name");
+
+                return View(input);
+            }
         }
 
         //
         // POST: /Topic/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, TopicInput input)
+        public ActionResult Edit(TopicInput input)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                using (var context = new ForumEntities())
+                {
+                    var topic = context.Topics.SingleOrDefault(t => t.Id == input.Id);
 
-                return RedirectToAction("Details", new {Id = id});
+                    topic.ForumId = input.ForumId;
+                    topic.Title = input.Title;
+                    topic.Body = input.Body;
+                    topic.Sticky = input.IsSticky;
+
+                    context.SaveChanges();
+
+                    return RedirectToAction("Details", new {topic.Id});
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(input);
         }
 
         //
@@ -103,15 +111,18 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            ViewData["CancelId"] = id;
-            ViewData["CancelAction"] = "Details";
-            ViewData["CancelController"] = RouteData.Values["Controller"];
-            var item = new DeleteItem
-                           {
-                               Id = id,
-                               Description = "Topic item selected for deletion"
-                           };
-            return View(item);
+            using (var context = new ForumEntities())
+            {
+                var topic = context.Topics.SingleOrDefault(t => t.Id == id);
+
+                var display = Mapper.Map<Topic, DeleteItem>(topic);
+
+                display.CancelNavigation = new CancelNavigation("Details",
+                                                                RouteData.Values["Controller"] as string,
+                                                                new {id});
+
+                return View(display);
+            }
         }
 
         //
@@ -120,14 +131,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
-            try
+            using (var context = new ForumEntities())
             {
-                // TODO: Add delete logic here
-                return RedirectToAction("Details", "Forum", new {Id = 312});
-            }
-            catch
-            {
-                return View();
+                var topic = context.Topics.SingleOrDefault(t => t.Id == id);
+
+                context.DeleteObject(topic);
+
+                context.SaveChanges();
+
+                return RedirectToAction("Details", "Forum", new {Id = topic.ForumId});
             }
         }
     }
