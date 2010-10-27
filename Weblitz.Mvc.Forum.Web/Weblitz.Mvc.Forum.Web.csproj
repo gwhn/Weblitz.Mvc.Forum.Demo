@@ -104,6 +104,10 @@
     <Content Include="App_Data\aspnetdb_log.LDF">
       <DependentUpon>aspnetdb.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\WeblitzMvcForum.mdf" />
+    <Content Include="App_Data\WeblitzMvcForum_log.ldf">
+      <DependentUpon>WeblitzMvcForum.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\Images\sticky.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Views\Forum\Create.aspx" />
