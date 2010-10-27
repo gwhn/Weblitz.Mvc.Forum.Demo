@@ -51,17 +51,21 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost]
         public ActionResult Create(TopicInput input)
         {
-            using (var context = new ForumEntities())
+            if (ModelState.IsValid)
             {
-                var topic = Topic.CreateTopic(0, input.ForumId, input.Title, input.Body, "tempuser", DateTime.Now,
-                                              input.IsSticky);
+                using (var context = new ForumEntities())
+                {
+                    var topic = Topic.CreateTopic(0, input.ForumId, input.Title, input.Body, "tempuser", DateTime.Now,
+                                                  input.IsSticky);
 
-                context.Topics.AddObject(topic);
+                    context.Topics.AddObject(topic);
 
-                context.SaveChanges();
+                    context.SaveChanges();
 
-                return RedirectToAction("Details", new {topic.Id});
+                    return RedirectToAction("Details", new {topic.Id});
+                }
             }
+            return RedirectToAction("Details", "Forum", new {Id = input.ForumId});
         }
 
         //

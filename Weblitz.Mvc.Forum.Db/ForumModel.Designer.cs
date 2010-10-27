@@ -20,7 +20,7 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("Weblitz.Mvc.Forum.Model", "FK_Topics_Forums", "Forum", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Weblitz.Mvc.Forum.Db.Forum), "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Weblitz.Mvc.Forum.Db.Topic), true)]
 [assembly: EdmRelationshipAttribute("Weblitz.Mvc.Forum.Model", "FK_Posts_Posts", "Parent", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Weblitz.Mvc.Forum.Db.Post), "Child", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Weblitz.Mvc.Forum.Db.Post), true)]
-[assembly: EdmRelationshipAttribute("Weblitz.Mvc.Forum.Model", "FK_Posts_Topics", "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Weblitz.Mvc.Forum.Db.Topic), "Post", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Weblitz.Mvc.Forum.Db.Post), true)]
+[assembly: EdmRelationshipAttribute("Weblitz.Mvc.Forum.Model", "FK_Posts_Topics", "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Weblitz.Mvc.Forum.Db.Topic), "Post", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Weblitz.Mvc.Forum.Db.Post), true)]
 
 #endregion
 
@@ -275,13 +275,15 @@ namespace Weblitz.Mvc.Forum.Db
         /// Create a new Post object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="topicId">Initial value of the TopicId property.</param>
         /// <param name="body">Initial value of the Body property.</param>
         /// <param name="author">Initial value of the Author property.</param>
         /// <param name="publishedDate">Initial value of the PublishedDate property.</param>
-        public static Post CreatePost(global::System.Int32 id, global::System.String body, global::System.String author, global::System.DateTime publishedDate)
+        public static Post CreatePost(global::System.Int32 id, global::System.Int32 topicId, global::System.String body, global::System.String author, global::System.DateTime publishedDate)
         {
             Post post = new Post();
             post.Id = id;
+            post.TopicId = topicId;
             post.Body = body;
             post.Author = author;
             post.PublishedDate = publishedDate;
@@ -321,9 +323,9 @@ namespace Weblitz.Mvc.Forum.Db
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> TopicId
+        public global::System.Int32 TopicId
         {
             get
             {
@@ -338,8 +340,8 @@ namespace Weblitz.Mvc.Forum.Db
                 OnTopicIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _TopicId;
-        partial void OnTopicIdChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _TopicId;
+        partial void OnTopicIdChanging(global::System.Int32 value);
         partial void OnTopicIdChanged();
     
         /// <summary>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using Weblitz.Mvc.Forum.Db;
 using Weblitz.Mvc.Forum.Web.Models;
 
 namespace Weblitz.Mvc.Forum.Web.Controllers
@@ -12,16 +14,18 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost]
         public ActionResult Create(PostInput input)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                using (var context = new ForumEntities())
+                {
+                    var post = Post.CreatePost(0, input.TopicId, input.Body, input.Author, DateTime.Now);
 
-                return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
+                    context.Posts.AddObject(post);
+
+                    context.SaveChanges();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
         }
 
         //
@@ -29,32 +33,36 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            ViewData["Topic"] = "The topic title in the current context";
-            var post = new PostInput
-                           {
-                               TopicId = 432,
-                               Author = "Author of post",
-                               Body = "this is the body of the post that is being edited"
-                           };
-            return View(post);
+            using (var context = new ForumEntities())
+            {
+                var post = context.Posts.SingleOrDefault(p => p.Id == id);
+
+                var input = Mapper.Map<Post, PostInput>(post);
+
+                return View(input);
+            }
         }
 
         //
         // POST: /Post/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, PostInput input)
+        public ActionResult Edit(PostInput input)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                using (var context = new ForumEntities())
+                {
+                    var post = context.Posts.SingleOrDefault(p => p.Id == input.Id);
 
-                return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
+                    post.Author = input.Author;
+                    post.Body = input.Body;
+                    post.TopicId = input.TopicId;
+
+                    context.SaveChanges();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Details", "Topic", new {Id = input.TopicId});
         }
 
         //
@@ -62,16 +70,16 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            var topicId = 312;
-            ViewData["CancelId"] = topicId;
-            ViewData["CancelAction"] = "Details";
-            ViewData["CancelController"] = "Topic";
-            var item = new DeleteItem
-                           {
-                               Id = id,
-                               Description = "Post item selected for deletion"
-                           };
-            return View(item);
+            using (var context = new ForumEntities())
+            {
+                var post = context.Posts.SingleOrDefault(p => p.Id == id);
+
+                var display = Mapper.Map<Post, DeleteItem>(post);
+
+                display.CancelNavigation = new CancelNavigation("Details", "Topic", new {id = post.TopicId});
+
+                return View(display);
+            }
         }
 
         //
@@ -80,15 +88,15 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult Destroy(int id)
         {
-            try
+            using (var context = new ForumEntities())
             {
-                // TODO: Add delete logic here
+                var post = context.Posts.SingleOrDefault(p => p.Id == id);
 
-                return RedirectToAction("Details", "Topic", new {Id = 312});
-            }
-            catch
-            {
-                return View();
+                context.DeleteObject(post);
+
+                context.SaveChanges();
+
+                return RedirectToAction("Details", "Topic", new {Id = post.TopicId});
             }
         }
 
@@ -100,7 +108,7 @@ namespace Weblitz.Mvc.Forum.Web.Controllers
         {
             try
             {
-                return RedirectToAction("Details", "Topic", new { Id = 8989 });
+                return RedirectToAction("Details", "Topic", new {Id = 8989});
             }
             catch
             {

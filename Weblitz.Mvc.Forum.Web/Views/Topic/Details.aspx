@@ -20,7 +20,7 @@
             foreach (var post in Model.Posts)
             {%>
         <div class="post">
-            <div class="body"><%:Model.Body%></div>
+            <div class="body"><%:post.Body%></div>
             <div class="meta">
                 <div class="author"><%:post.Author%></div>
                 <div class="date"><%:post.PublishedDate%></div>
